@@ -2096,7 +2096,7 @@ body.show-right-scrollbar .chat-window::-webkit-scrollbar-thumb:hover,
     }
 
     .chat-window {
-        padding: 20px 16px 90px 16px !important;
+        padding: 20px 16px 110px 16px !important;
     }
 
     .chat-controls {
@@ -2105,6 +2105,7 @@ body.show-right-scrollbar .chat-window::-webkit-scrollbar-thumb:hover,
         flex-direction: column;
         align-items: stretch;
         gap: 8px;
+        margin-top: 20px !important;
     }
 
     .university-selector,
@@ -2134,11 +2135,16 @@ body.show-right-scrollbar .chat-window::-webkit-scrollbar-thumb:hover,
         background: var(--bg-card);
     }
 
-    /* В непустом чате на телефоне: увеличенные еще на 1px отступы контейнера ввода и сообщений ИИ */
+    /* В непустом чате на телефоне: увеличенные на 20px отступы контейнера ввода и сообщений */
     .chat-container:not(.chat-is-empty) .ai-msg,
     .chat-container:not(.chat-is-empty) .msg.ai-msg {
         padding: 17px 21px !important;
-        margin-bottom: 19px !important;
+        margin-bottom: 24px !important;
+    }
+
+    .chat-container:not(.chat-is-empty) .chat-window {
+        padding-bottom: 130px !important;
+        margin-bottom: 20px !important;
     }
 
     .chat-container:not(.chat-is-empty) .chat-input-wrapper {
@@ -2148,7 +2154,8 @@ body.show-right-scrollbar .chat-window::-webkit-scrollbar-thumb:hover,
     .chat-container:not(.chat-is-empty) .chat-controls {
         padding-left: 19px !important;
         padding-right: 19px !important;
-        padding-bottom: 17px !important;
+        padding-bottom: 24px !important;
+        margin-top: 20px !important;
     }
 
     .chat-input-row {
