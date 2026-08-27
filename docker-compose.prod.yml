@@ -1,0 +1,61 @@
+services:
+  nginx:
+    image: nginx:alpine
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./uploads:/var/www/html/uploads:ro
+    depends_on:
+      - web
+      - api
+
+  db:
+    image: pgvector/pgvector:pg16
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD:-1010}"
+      POSTGRES_DB: medai_db
+    # Порт БД закрыт от внешнего мира, доступен только внутри Docker
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./backup.dump:/backup.dump:ro
+      - ./scripts/init-db.sh:/docker-entrypoint-initdb.d/init-db.sh:ro
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    # Порт 9080 закрыт снаружи, весь трафик идет через Nginx
+    env_file:
+      - .env
+    environment:
+      - FASTAPI_URL=http://api:8000/api/chat
+      - DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD:-1010}@db:5432/medai_db?sslmode=disable
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - db
+      - api
+    restart: always
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    # Порт 9090 закрыт снаружи, доступен только через Nginx / PHP
+    env_file:
+      - .env
+    environment:
+      - DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD:-1010}@db:5432/medai_db?sslmode=disable
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+    restart: always
+
+volumes:
+  pgdata:

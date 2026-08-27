@@ -1,0 +1,51 @@
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "1010"
+      POSTGRES_DB: medai_db
+    ports:
+      - "5434:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./backup.dump:/backup.dump:ro
+      - ./scripts/init-db.sh:/docker-entrypoint-initdb.d/init-db.sh:ro
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    ports:
+      - "9080:80"
+    env_file:
+      - .env
+    environment:
+      - FASTAPI_URL=http://api:8000/api/chat
+      - DATABASE_URL=postgresql://postgres:1010@db:5432/medai_db?sslmode=disable
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - db
+      - api
+    restart: always
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    ports:
+      - "9090:8000"
+    env_file:
+      - .env
+    environment:
+      - DATABASE_URL=postgresql://postgres:1010@db:5432/medai_db?sslmode=disable
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+    restart: always
+
+volumes:
+  pgdata:

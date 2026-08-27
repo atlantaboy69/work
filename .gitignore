@@ -1,0 +1,145 @@
+# =============================================================================
+# 1. Секреты, ключи доступа и переменные окружения (КРИТИЧЕСКИ ВАЖНО)
+# =============================================================================
+.env
+.env.*
+*.env
+.env.local
+.env.production
+.env.staging
+
+# SSH-ключи, приватные сертификаты и токены
+id_rsa
+id_rsa*
+*.ppk
+*.pem
+*.key
+*.pub
+*.crt
+*.csr
+sbermedai.ppk
+
+# =============================================================================
+# 2. Дампы баз данных и тяжелые бэкапы
+# =============================================================================
+*.dump
+*.sql
+*.sql.gz
+*.tar.gz
+*.bak
+backup.dump
+database_dump.sql
+
+# Сырые датасеты и данные для разового импорта (data/)
+data/
+
+# =============================================================================
+# 3. PHP, Composer и серверные зависимости
+# =============================================================================
+/vendor/
+composer.phar
+.phpunit.result.cache
+
+# Временные сессии PHP (сохраняем только .gitkeep)
+sessions/*
+!sessions/.gitkeep
+
+# Логи приложения (сохраняем только .gitkeep)
+logs/*
+!logs/.gitkeep
+*.log
+logs/*.txt
+
+# Загруженные пользователями файлы (сохраняем только .gitkeep)
+uploads/*
+!uploads/.gitkeep
+
+# =============================================================================
+# 4. Python, кэш и виртуальные окружения
+# =============================================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.pytest_cache/
+
+# =============================================================================
+# 5. Docker локальные переопределения
+# =============================================================================
+docker-compose.override.yml
+docker-compose.local.yml
+.docker/
+
+# =============================================================================
+# 6. Артефакты Replit, сторонние дампы и сохраненные страницы
+# =============================================================================
+.replit
+replit.nix
+.local/
+.config/
+.agents/
+attached_assets/
+scratch/
+
+# Сохраненные HTML страницы из браузера и временные файлы
+*.html.tmp
+*.tmp
+ГигаЧат*.html
+ГигаЧат*.htm
+
+# Сгенерированные дубликаты каталогов иконок
+sberbusiness_icons.php
+@sberbusiness/
+logos/title-bg-big.*.svg
+!logos/title-bg-big.svg
+
+# =============================================================================
+# 7. IDE, редакторы кода и операционные системы (Windows / macOS / Linux)
+# =============================================================================
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# VS Code / JetBrains / Vim
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea/
+*.sublime-workspace
+*.sublime-project
+*.swp
+*.swo
+*~
