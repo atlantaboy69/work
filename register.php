@@ -22,7 +22,11 @@
                 <input type="email" name="login" placeholder="Введите почту..." required>
             </div>
             <div class="input-field">
-                <input type="password" name="password" placeholder="Придумайте пароль..." required minlength="3">
+                <input type="password" id="password" name="password" placeholder="Придумайте пароль..." required minlength="3">
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="show-pass" onclick="togglePassword()">
+                <label for="show-pass">Показать пароль</label>
             </div>
             <button type="submit" class="btn-submit">Зарегистрироваться</button>
         </form>
@@ -32,5 +36,16 @@
         <?php endif; ?>
     </div>
     <div class="footer-disclaimer">Не заменяет поход к специалисту</div>
+
+    <script>
+    function togglePassword() {
+        var x = document.getElementById("password");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+    </script>
 </body>
 </html>
